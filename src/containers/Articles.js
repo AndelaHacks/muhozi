@@ -5,6 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/AntDesign';
+import * as Progress from 'react-native-progress';
 import { fetchArticles } from '../actions/ArticlesActions';
 import styles from '../styles';
 
@@ -25,7 +26,7 @@ const ActionButton = (props) => {
 
 class Articles extends Component {
   state = {
-    refreshing: true,
+    refreshing: false,
   };
 
   componentDidMount() {
@@ -47,7 +48,13 @@ class Articles extends Component {
     return (
       <View style={styles.container}>
         {loading && !refreshing ? (
-          <Text>{message}</Text>
+          <View style={styles.center}>
+            <Progress.Circle size={60} indeterminate color="#555" />
+            <Text>
+              {'\n'}
+              {message}
+            </Text>
+          </View>
         ) : (
           <FlatList
             data={articles}

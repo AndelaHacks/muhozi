@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
   actionButtonWrapper: {
     flexDirection: 'row',
   },
+  center: {
+    alignItems: 'center',
+  },
 });
 
 export default styles;
