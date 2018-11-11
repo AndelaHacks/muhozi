@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
   center: {
     alignItems: 'center',
   },
+  padTop: {
+    marginTop: 60,
+  },
 });
 
 export default styles;

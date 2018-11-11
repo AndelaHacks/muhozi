@@ -7,15 +7,15 @@ import styles from '../styles';
 export default class Splash extends Component {
   componentDidMount() {
     setTimeout(() => {
-      Actions.articles({ type: 'reset' });
+      Actions.login({ type: 'reset' });
     }, 1000);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Icon name="bulb1" size={50} />
-        <Text style={styles.splashHeader}>Thibitisha</Text>
+        <Icon name="bulb1" size={50} color="#28628d" />
+        <Text style={[styles.splashHeader, { color: '#28628d' }]}>Thibitisha</Text>
       </View>
     );
   }

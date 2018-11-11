@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as Progress from 'react-native-progress';
+import { Actions } from 'react-native-router-flux';
 import { fetchArticles } from '../actions/ArticlesActions';
 import styles from '../styles';
 
@@ -63,22 +64,52 @@ class Articles extends Component {
             onRefresh={this.refreshArticles}
             renderItem={({ item: article }) => (
               <TouchableHighlight
-                onPress={() => alert('🎉🎉🎉🎉')}
+                onPress={() => alert('To be Implemented later.')}
                 underlayColor="rgba(25, 43, 62, 0.1)"
               >
                 <View style={styles.listArticleRow}>
                   <Text style={styles.listArticleTitle}>{article.title}</Text>
                   <Text style={styles.listArticleBody}>{article.body}</Text>
                   <View style={styles.listArticleActions}>
-                    <ActionButton label="400" icon="eyeo" action={() => alert('OK')} />
-                    <ActionButton label="400" icon="arrowup" action={() => alert('OK')} />
-                    <ActionButton label="400" icon="arrowdown" action={() => alert('OK')} />
+                    <ActionButton label="400" icon="eyeo" action={() => false} />
+                    <ActionButton
+                      label="400"
+                      icon="arrowup"
+                      action={() => alert('Upvote 🤗 🤗 🤗 🤗 🤗 🤗, Coming soon')}
+                    />
+                    <ActionButton
+                      label="400"
+                      icon="arrowdown"
+                      action={() => alert('Downvote ☹️ ☹ ️☹️ ☹️ ☹️ ☹️ ☹️, Coming soon')}
+                    />
                   </View>
                 </View>
               </TouchableHighlight>
             )}
           />
         )}
+        <TouchableHighlight
+          style={{
+            backgroundColor: '#28628d',
+            position: 'absolute',
+            bottom: 10,
+            right: 10,
+            padding: 20,
+            borderRadius: 30,
+            height: 60,
+            width: 60,
+            zIndex: 1000,
+            alignContent: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 10,
+          }}
+          onPress={() => Actions.post()}
+        >
+          <View>
+            <Icon name="eyeo" color="#fff" size={20} />
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
