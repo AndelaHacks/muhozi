@@ -4,9 +4,9 @@ import { FETCHED_ARTICLES, FETCH_ARTICLES } from './ActionTypes';
 export const fetchArticles = () => (dispatch) => {
   dispatch({ type: FETCH_ARTICLES });
   return axios
-    .get('https://jsonplaceholder.typicode.com/posts')
+    .get('https://thibitisha.rabsms.online/posts')
     .then((response) => {
-      dispatch({ type: FETCHED_ARTICLES, data: response.data });
+      dispatch({ type: FETCHED_ARTICLES, data: response.data.posts });
     })
     .catch(() => {
       alert('Something went wrong');
