@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Text, View, FlatList, TouchableHighlight, TouchableOpacity,
+  Text,
+  View,
+  FlatList,
+  TouchableHighlight,
+  TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -11,12 +16,24 @@ import { fetchArticles } from '../actions/ArticlesActions';
 import styles from '../styles';
 
 const ActionButton = (props) => {
-  const { label, icon, action } = props;
+  const {
+    label, icon, action, success, danger,
+  } = props;
+  const color = (() => {
+    if (success) {
+      return 'rgb(52, 168, 83)';
+    }
+    if (danger) {
+      return 'rgba(255, 0, 0, 0.71)';
+    }
+    return '#333';
+  })();
+
   return (
     <TouchableOpacity onPress={action}>
       <View style={styles.actionButtonWrapper}>
-        <Icon name={icon} size={20} />
-        <Text style={styles.listArticleActionsLabel}>
+        <Icon name={icon} size={20} color={color} />
+        <Text style={[styles.listArticleActionsLabel, { color }]}>
           {label}
           &nbsp;&nbsp;&nbsp;
         </Text>
@@ -24,6 +41,10 @@ const ActionButton = (props) => {
     </TouchableOpacity>
   );
 };
+
+function getRandomInt() {
+  return Math.floor(Math.random() * Math.floor(1000000));
+}
 
 class Articles extends Component {
   state = {
@@ -48,6 +69,7 @@ class Articles extends Component {
     const { refreshing } = this.state;
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
         {loading && !refreshing ? (
           <View style={styles.center}>
             <Progress.Circle size={60} indeterminate color="#555" />
@@ -59,7 +81,7 @@ class Articles extends Component {
         ) : (
           <FlatList
             data={articles}
-            keyExtractor={article => String(article.id)}
+            keyExtractor={article => article.uuid}
             refreshing={refreshing}
             onRefresh={this.refreshArticles}
             renderItem={({ item: article }) => (
@@ -69,18 +91,20 @@ class Articles extends Component {
               >
                 <View style={styles.listArticleRow}>
                   <Text style={styles.listArticleTitle}>{article.title}</Text>
-                  <Text style={styles.listArticleBody}>{article.body}</Text>
+                  <Text style={styles.listArticleBody}>{article.description}</Text>
                   <View style={styles.listArticleActions}>
-                    <ActionButton label="400" icon="eyeo" action={() => false} />
+                    <ActionButton label={String(getRandomInt())} icon="eyeo" action={() => false} />
                     <ActionButton
-                      label="400"
+                      label={String(getRandomInt())}
                       icon="arrowup"
                       action={() => alert('Upvote 🤗 🤗 🤗 🤗 🤗 🤗, Coming soon')}
+                      success
                     />
                     <ActionButton
-                      label="400"
+                      label={String(getRandomInt())}
                       icon="arrowdown"
                       action={() => alert('Downvote ☹️ ☹ ️☹️ ☹️ ☹️ ☹️ ☹️, Coming soon')}
+                      danger
                     />
                   </View>
                 </View>
@@ -127,10 +151,14 @@ ActionButton.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
   action: PropTypes.func,
+  danger: PropTypes.bool,
+  success: PropTypes.bool,
 };
 
 ActionButton.defaultProps = {
   action: () => false,
+  success: false,
+  danger: false,
 };
 
 Articles.propTypes = {
@@ -139,8 +167,8 @@ Articles.propTypes = {
     loading: PropTypes.bool.isRequired,
     articles: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        body: PropTypes.string.isRequired,
+        uuid: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
       }),
     ),
   }),

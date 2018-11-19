@@ -29,6 +29,8 @@ export default () => (
           title="Sign up"
           navigationBarStyle={{ backgroundColor: '#28628d' }}
           titleStyle={{ color: '#fff' }}
+          backButtonTextStyle={{ color: '#fff' }}
+          backButtonTintColor="#fff"
         />
         <Scene
           key="articles"
@@ -39,10 +41,12 @@ export default () => (
         />
         <Scene
           key="post"
-          title="Check the link"
+          title="Check the news resources"
           component={Post}
           navigationBarStyle={{ backgroundColor: '#28628d' }}
           titleStyle={{ color: '#fff' }}
+          backButtonTextStyle={{ color: '#fff' }}
+          backButtonTintColor="#fff"
         />
       </Modal>
     </RouterWithRedux>

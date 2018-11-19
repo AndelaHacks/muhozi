@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textTransform: 'capitalize',
     padding: 10,
+    fontSize: 18,
   },
   listArticleBody: {
     color: '#222',
